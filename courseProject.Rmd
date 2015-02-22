@@ -1,0 +1,79 @@
+---
+title: "Prediction of Quality Indicators from Weight Lifting Exercises Data"
+author: "judson"
+date: "Saturday, February 21, 2015"
+output: html_document
+---
+
+The training and testing datasets for the prediction exercise were downloaded from the site http://groupware.les.inf.puc-rio.br/har. The data were read in from a local drive following downloading. The r packages we anticipated that we would need for processing or analysis were also installed and loaded.
+
+
+
+```{r}
+
+library(caret)
+library(ggplot2)
+library(gridExtra)
+
+train1 <- read.csv("training.csv")
+test1 <- read.csv("testing.csv")
+```
+
+We have a large number of variables (160) in both datasets and a very large number of observations in the training dataset (19,622). Hence, we need a way to eliminate variables which will not be valuable in prediction. Exploratory data analysis does not quickly identify variables that are candidates for elimination. We do note that there are only 460 complete cases in the 19,622 cases in the testing dataset but it is not easy to simplify to a robust number of complete cases or to impute missing values.
+
+We do, however, note that in the test dataset, all NAs occur in 100 of the 160 variables and all values of those variables are NA. Hence, these variables are not useful for prediction in any case. When we eliminate these variables from the training set, we are left with ONLY complete cases - all 19,622 original observations. We proceeed on this basis. 
+
+Referees please note: NO ANALYSIS of the TEST DATASET was performed, no statistics generated, no predictions evaluated. We have simply eliminated all variables that have NA values in either dataset.
+
+
+```{r}
+test1Transpose <- t(test1)
+columnsToSave <- complete.cases(test1Transpose)
+train1CwD <- train1[,columnsToSave]
+sum(complete.cases(train1CwD))
+predictData <- train1CwD[,8:60]
+```
+
+Thus we have 52 potential predictor variables for classe, the outcome below shows no additional candidates for immediate removal.
+
+```{r}
+varSave2 <- nearZeroVar(predictData[,-53], saveMetric=TRUE)
+max(varSave2$nzv)
+```
+
+Consequently, all variables are saved for prediction analysis.
+
+```{r}
+set.seed(32323)
+inTrain <- createDataPartition(y=predictData$classe, p=0.8, list=FALSE)
+trainSubset <- predictData[inTrain,]
+testSubset <- predictData[-inTrain,]
+
+set.seed(32323)
+cvMethod <- trainControl(method="repeatedcv", number=8, repeats=8)
+
+set.seed(32323)
+model <- train(classe~., data=trainSubset, method="qda", preProcess=c("center", "scale"), trControl=cvMethod)
+print(model)
+```
+
+Out-of-Sample Error Rate
+
+
+
+```{r}
+oosPred <- predict(model, newdata=testSubset)
+oosPredEval <- oosPred == testSubset$classe
+print(sum(oosPredEval)/length(oosPredEval))
+confusionMatrix(data=oosPred, reference= testSubset$classe)
+```
+
+Hence we predict an out-of-sample error rate of 1.0000 - 0.8924 or about 10.75%.
+
+
+Prediction on Testing Dataset
+
+```{r}
+testSetPred <- predict(model, newdata=test1)
+t(rbind(test1[,160], as.character(testSetPred)))
+```
