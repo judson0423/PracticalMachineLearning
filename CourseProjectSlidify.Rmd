@@ -1,0 +1,85 @@
+---
+title: "Predicting Your Salary in 10 Years"
+author: "judson"
+highlighter: highlight.js
+output: pdf_document
+job: null
+knit: slidify::knit2slides
+mode: selfcontained
+hitheme: tomorrow
+subtitle: null
+framework: io2012
+widgets: []
+---
+
+## What this Application Does
+
+This presentation describes an application which predicts your salary in 10 years time.
+
+It is a simple predictor, useful within reason, but cannot take into account complex factors such as whether you will attain an advanced degree within the decade or whether you will work in a field that does not now exist. 
+
+---
+
+## Inputs for the Salary Prediction Function
+
+To get a prediction, respond with appropriate value in the input box. 
+
+For salary, input a value between $14,000 (14000) and $400,000 (400000). Outside of these values, the predictor will use $14,000 as a minimum and $400,000 as a maximum.
+
+---
+
+## The Predictor is Based on the Normal Expectations that are Satisfied in Free Market Economies
+
+The predictor is based on the following reasoning:
+
+Salaries tend to follow a more-or-less smooth progression, outside of a burst of unsustainable inflation or unaddressable skill shortage. Abnormal pressures on salaries in any industry or area are usually defused over time by the normal give-and-take of supply and demand in free market economies. Hence, most salaries are reasonably predictable in 'real' terms.
+
+---
+
+## R Code ui.R
+
+The code for the function is shown on this and the next slide.
+
+library(shiny)
+shinyUI(
+        pageWithSidebar(
+                headerPanel("Prediction of Salary in 10 Years"),
+                
+                sidebarPanel(
+                        numericInput('salary', 'Current salary in $US', 35000, min=15000, max=400000, step=1000),
+                        submitButton('Submit')
+                ),
+                mainPanel(
+                        h3('Salary Prediction'),
+                        h4('You entered current salary of '),
+                        verbatimTextOutput("inputValue"),
+                        h4(' '),
+                        h4('Your salary in 10 years will be '),
+                        verbatimTextOutput("prediction")
+                )))
+
+---  
+
+## R Code server.R
+
+salaryIn10Years <- function(salary) 1.8*salary
+
+library(shiny)
+shinyServer(
+        function(input, output) {
+                output$inputValue <- renderPrint({input$salary})
+                output$prediction <- renderPrint({salaryIn10Years(input$salary)})
+        }
+)
+
+
+
+
+
+---
+
+## The Results are in 'Real' Economic Terms
+
+The predicted value is in 'real' economic terms; i.e, 'core' inflation is factored out. The predicted values, outside of sustained economic abnormalities, reflect an expected increase in the basic purchasing power of individuals as they remain in and mature in the labor economy.
+
+
