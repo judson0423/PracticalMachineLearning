@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Predicting Your Salary in 10 Years</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Predicting Your Salary in 10 Years">
+  <meta name="author" content="judson">
+  <meta name="generator" content="slidify">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="Predicting%20Your%20Salary%20in%2010%20Years_Title_files/default.css" media="all">
+  <link rel="stylesheet" href="Predicting%20Your%20Salary%20in%2010%20Years_Title_files/phone.css" media="only screen and (max-device-width: 480px)">
+  <link rel="stylesheet" href="Predicting%20Your%20Salary%20in%2010%20Years_Title_files/slidify.css">
+  <link rel="stylesheet" href="Predicting%20Your%20Salary%20in%2010%20Years_Title_files/tomorrow.css">
+  <script src="Predicting%20Your%20Salary%20in%2010%20Years_Title_files/slides.js" data-requiremodule="slides" data-requirecontext="_" async="" charset="utf-8" type="text/javascript"></script><script src="Predicting%20Your%20Salary%20in%2010%20Years_Title_files/order.js" data-requiremodule="order" data-requirecontext="_" async="" charset="utf-8" type="text/javascript"></script><script src="Predicting%20Your%20Salary%20in%2010%20Years_Title_files/slide_config.js" data-requiremodule="slide_config" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="Predicting%20Your%20Salary%20in%2010%20Years_Title_files/modernizr.js" data-requiremodule="modernizr.custom.45394" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="Predicting%20Your%20Salary%20in%2010%20Years_Title_files/hammer.js" data-requiremodule="hammer" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="Predicting%20Your%20Salary%20in%2010%20Years_Title_files/slide-controller.js" data-requiremodule="slide-controller" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><script src="Predicting%20Your%20Salary%20in%2010%20Years_Title_files/slide-deck.js" data-requiremodule="slide-deck" data-requirecontext="_" charset="utf-8" type="text/javascript"></script><!-- base href="file:///C:/Users/judson/Documents/R/dataScienceCoursera/9.%20DevelopDataProducts/CourseProjectSlidify.html" --> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="Predicting%20Your%20Salary%20in%2010%20Years_Title_files/jquery-1.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" src="Predicting%20Your%20Salary%20in%2010%20Years_Title_files/require-1.js">
+  </script>
+  
+  
+
+<link href="Predicting%20Your%20Salary%20in%2010%20Years_Title_files/css.css" rel="stylesheet"></head>
+<body class="loaded" style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide data-total-slides="7" data-slide-num="1" class="title-slide segue nobackground current">
+  <hgroup class="auto-fadein">
+    <h1>Predicting Your Salary in 10 Years</h1>
+    <h2></h2>
+    <p>judson<br></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide data-total-slides="7" data-slide-num="2" class="next" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>What this Application Does</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This presentation describes an application which predicts your salary in 10 years time.</p>
+
+<p>It is a simple predictor, useful within reason, but cannot take into 
+account complex factors such as whether you will attain an advanced 
+degree within the decade or whether you will work in a field that does 
+not now exist. </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide data-total-slides="7" data-slide-num="3" class="far-next" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Inputs for the Salary Prediction Function</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>To get a prediction, respond with appropriate value in the input box. </p>
+
+<p>For salary, input a value between $14,000 (14000) and $400,000 
+(400000). Outside of these values, the predictor will use $14,000 as a 
+minimum and $400,000 as a maximum.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide data-total-slides="7" data-slide-num="4" class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>The Predictor is Based on the Normal Expectations that are Satisfied in Free Market Economies</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The predictor is based on the following reasoning:</p>
+
+<p>Salaries tend to follow a more-or-less smooth progression, outside of
+ a burst of unsustainable inflation or unaddressable skill shortage. 
+Abnormal pressures on salaries in any industry or area are usually 
+defused over time by the normal give-and-take of supply and demand in 
+free market economies. Hence, most salaries are reasonably predictable 
+in 'real' terms.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide data-total-slides="7" data-slide-num="5" class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>R Code ui.R</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The code for the function is shown on this and the next slide.</p>
+
+<p>library(shiny)
+shinyUI(
+        pageWithSidebar(
+                headerPanel("Prediction of Salary in 10 Years"),</p>
+
+<pre><code class="vhdl">            sidebarPanel(
+                    numericInput(<span class="attribute">'salary</span>', <span class="attribute">'Current</span> salary <span class="keyword">in</span> $US', <span class="number">35000</span>, min=<span class="number">15000</span>, max=<span class="number">400000</span>, step=<span class="number">1000</span>),
+                    submitButton(<span class="attribute">'Submit</span>')
+            ),
+            mainPanel(
+                    h3(<span class="attribute">'Salary</span> Prediction'),
+                    h4(<span class="attribute">'You</span> entered current salary <span class="keyword">of</span> '),
+                    verbatimTextOutput(<span class="string">"inputValue"</span>),
+                    h4(' '),
+                    h4(<span class="attribute">'Your</span> salary <span class="keyword">in</span> <span class="number">10</span> years will be '),
+                    verbatimTextOutput(<span class="string">"prediction"</span>)
+            )))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide data-total-slides="7" data-slide-num="6" class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>R Code server.R</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>salaryIn10Years &lt;- function(salary) 1.8*salary</p>
+
+<p>library(shiny)
+shinyServer(
+        function(input, output) {
+                output$inputValue &lt;- renderPrint({input$salary})
+                output$prediction &lt;- renderPrint({salaryIn10Years(input$salary)})
+        }
+)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide data-total-slides="7" data-slide-num="7" class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>The Results are in 'Real' Economic Terms</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The predicted value is in 'real' economic terms; i.e, 'core' 
+inflation is factored out. The predicted values, outside of sustained 
+economic abnormalities, reflect an expected increase in the basic 
+purchasing power of individuals as they remain in and mature in the 
+labor economy.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id="io2012-ptoc" style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel="tooltip" data-slide="1" title="What this Application Does">
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel="tooltip" data-slide="2" title="Inputs for the Salary Prediction Function">
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel="tooltip" data-slide="3" title="The Predictor is Based on the Normal Expectations that are Satisfied in Free Market Economies">
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel="tooltip" data-slide="4" title="R Code ui.R">
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel="tooltip" data-slide="5" title="R Code server.R">
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel="tooltip" data-slide="6" title="The Results are in 'Real' Economic Terms">
+         6
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+
+  
+  
+  
+  <script src="Predicting%20Your%20Salary%20in%2010%20Years_Title_files/highlight.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </body><!-- Load Javascripts for Widgets --><!-- LOAD HIGHLIGHTER JS FILES --></html>
